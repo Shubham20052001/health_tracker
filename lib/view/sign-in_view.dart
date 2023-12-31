@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:health_tracker/repository/auth_services.dart';
+import 'package:health_tracker/repository/firestore_services.dart';
 import 'package:health_tracker/res/components/buttons.dart';
 import 'package:health_tracker/res/components/components.dart';
 import 'package:health_tracker/utils/routes/routes_name.dart';
@@ -14,7 +15,9 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController emailcontroller = TextEditingController();
     TextEditingController passwordcontroller = TextEditingController();
+    TextEditingController namecontroller = TextEditingController();
     final authPro = Provider.of<AuthService>(context);
+    final firestorePro = Provider.of<FirestoreService>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("SignUp"),
@@ -23,6 +26,15 @@ class SignUpScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Components.myTextfield(
+              controller: namecontroller,
+              hintText: 'Enter your name',
+              labelText: 'Username',
+            ),
+          ),
+          Components.sBox(height: 15),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Components.myTextfield(
@@ -43,15 +55,21 @@ class SignUpScreen extends StatelessWidget {
           Components.sBox(height: 10),
           Buttons.introButton(
               title: "Sign-Up",
-              onPress: () {
-                authPro
-                    .createUserWithEmailAndPassword(
+              onPress: () async {
+                final userModel = await authPro.createUserWithEmailAndPassword(
                   email: emailcontroller.text,
                   password: passwordcontroller.text,
                   context: context,
+                );
+
+                firestorePro
+                    .addUser(
+                  username: namecontroller.text,
+                  email: emailcontroller.text,
+                  uid: userModel!.uid,
                 )
                     .whenComplete(() {
-                  Utils.showMessage("Registered Successfully", context);
+                  Utils.showMessage("Registered Sucessfully", context);
                   Navigator.pushReplacementNamed(context, RouteNames.home);
                 });
               }),
