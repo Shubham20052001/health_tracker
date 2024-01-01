@@ -5,6 +5,13 @@ import 'package:health_tracker/utils/utils.dart';
 
 class AuthService {
   final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
+  late final UserModel _curUser;
+
+  UserModel get curUser => _curUser;
+
+  setUser(String uid, String username, String email) {
+    _curUser = UserModel(uid, username, email);
+  }
 
   UserModel? _userFromFirebase(auth.User? user) {
     if (user == null) return null;
@@ -39,13 +46,16 @@ class AuthService {
   Future<UserModel?> createUserWithEmailAndPassword({
     required String email,
     required String password,
+    required String username,
     required BuildContext context,
   }) async {
     try {
       final auth.UserCredential credential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
 
-      return _userFromFirebase(credential.user);
+      var user = _userFromFirebase(credential.user);
+      setUser(user!.uid, username, user.email!);
+      return user;
     } on auth.FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Utils.showMessage('The password provided is too weak.', context);

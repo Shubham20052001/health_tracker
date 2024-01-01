@@ -59,6 +59,7 @@ class SignUpScreen extends StatelessWidget {
                 final userModel = await authPro.createUserWithEmailAndPassword(
                   email: emailcontroller.text,
                   password: passwordcontroller.text,
+                  username: namecontroller.text,
                   context: context,
                 );
 

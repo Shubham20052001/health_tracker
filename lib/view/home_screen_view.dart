@@ -19,12 +19,13 @@ class HomeScreen extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, RouteNames.login);
               });
             },
+            tooltip: "Logout",
             icon: const Icon(Icons.logout),
           ),
         ],
       ),
-      body: const Center(
-        child: Text("Hello!!"),
+      body: Center(
+        child: Text("Hello!! ${authPro.curUser.username}"),
       ),
     );
   }
