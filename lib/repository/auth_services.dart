@@ -9,7 +9,7 @@ class AuthService {
   UserModel? _userFromFirebase(auth.User? user) {
     if (user == null) return null;
 
-    return UserModel(user.uid, user.email);
+    return UserModel(user.uid, user.displayName, user.email);
   }
 
   Stream<UserModel?> get userStream {
