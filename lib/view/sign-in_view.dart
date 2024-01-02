@@ -30,6 +30,7 @@ class SignUpScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Components.myTextfield(
               controller: namecontroller,
+              hideText: false,
               hintText: 'Enter your name',
               labelText: 'Username',
             ),
@@ -39,6 +40,7 @@ class SignUpScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Components.myTextfield(
               controller: emailcontroller,
+              hideText: false,
               hintText: 'Enter your email',
               labelText: 'Email',
             ),
@@ -48,6 +50,7 @@ class SignUpScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Components.myTextfield(
               controller: passwordcontroller,
+              hideText: true,
               hintText: 'Enter your password',
               labelText: 'Password',
             ),

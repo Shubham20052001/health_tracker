@@ -26,6 +26,7 @@ class LoginScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Components.myTextfield(
               controller: emailcontroller,
+              hideText: false,
               hintText: 'Enter your email',
               labelText: 'Email',
             ),
@@ -35,6 +36,7 @@ class LoginScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Components.myTextfield(
               controller: passwordcontroller,
+              hideText: true,
               hintText: 'Enter your password',
               labelText: 'Password',
             ),

@@ -3,14 +3,14 @@
 import 'package:flutter/material.dart';
 
 class Buttons {
-  static introButton({
+  static ButtonStyleButton introButton({
     required String title,
     required Function() onPress,
+    ButtonStyle? style,
   }) {
     return ElevatedButton(
       child: Text(title),
-      style: const ButtonStyle(
-          backgroundColor: MaterialStatePropertyAll(Colors.blueAccent)),
+      style: style,
       onPressed: onPress,
     );
   }

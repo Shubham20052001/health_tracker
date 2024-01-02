@@ -9,14 +9,14 @@ class AuthService {
 
   UserModel get curUser => _curUser;
 
-  setUser(String uid, String username, String email) {
-    _curUser = UserModel(uid, username, email);
+  setUser(String uid, String email) {
+    _curUser = UserModel(uid, email);
   }
 
   UserModel? _userFromFirebase(auth.User? user) {
     if (user == null) return null;
 
-    return UserModel(user.uid, user.displayName, user.email);
+    return UserModel(user.uid, user.email);
   }
 
   Stream<UserModel?> get userStream {
@@ -32,7 +32,9 @@ class AuthService {
       final auth.UserCredential credential = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
 
-      return _userFromFirebase(credential.user);
+      var user = _userFromFirebase(credential.user);
+      setUser(user!.uid, user.email!);
+      return user;
     } on auth.FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         Utils.showMessage('No user found for that email.', context);
@@ -54,7 +56,7 @@ class AuthService {
           .createUserWithEmailAndPassword(email: email, password: password);
 
       var user = _userFromFirebase(credential.user);
-      setUser(user!.uid, username, user.email!);
+      setUser(user!.uid, user.email!);
       return user;
     } on auth.FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

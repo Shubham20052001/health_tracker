@@ -16,11 +16,17 @@ class DeciderView extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           final UserModel? userModel = snapshot.data;
+          if (userModel != null) {
+            authService.setUser(
+              userModel.uid,
+              userModel.email!,
+            );
+          }
           return userModel == null ? const LoginScreen() : const HomeScreen();
         } else {
           return const Scaffold(
             body: Center(
-              // TODO: Implement connetion error response using images, texts etc.
+              // TODO: Implement connection error response using images, texts etc.
               child: CircularProgressIndicator(),
             ),
           );

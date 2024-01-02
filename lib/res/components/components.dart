@@ -7,9 +7,11 @@ class Components {
     required TextEditingController controller,
     required String hintText,
     required String labelText,
+    required bool hideText,
   }) {
     return TextField(
       controller: controller,
+      obscureText: hideText,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
