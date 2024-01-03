@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_tracker/repository/auth_services.dart';
+import 'package:health_tracker/repository/firestore_services.dart';
 import 'package:health_tracker/res/components/buttons.dart';
 import 'package:health_tracker/res/components/components.dart';
 import 'package:health_tracker/res/styles.dart';
@@ -14,6 +15,8 @@ class HomeScreen extends StatelessWidget {
     TextEditingController heightController = TextEditingController();
     TextEditingController weightController = TextEditingController();
     final authPro = Provider.of<AuthService>(context);
+    final firestorePro = Provider.of<FirestoreService>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
@@ -31,13 +34,14 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Text(
-            "Hello!! ${authPro.curUser.uid}",
-            style: const TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          FutureBuilder(
+              future: firestorePro.getUserInfo(
+                fieldName: "username",
+                uid: authPro.curUser!.uid,
+              ),
+              builder: (context, snapshot) {
+                return Text("Hi! ${snapshot.data}");
+              }),
           Components.sBox(height: 20),
           const Text(
             "Calculate your BMI",

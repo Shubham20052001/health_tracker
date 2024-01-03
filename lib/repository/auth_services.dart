@@ -5,18 +5,18 @@ import 'package:health_tracker/utils/utils.dart';
 
 class AuthService {
   final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
-  late final UserModel _curUser;
+  UserModel? _curUser;
 
-  UserModel get curUser => _curUser;
+  UserModel? get curUser => _curUser;
 
   setUser(String uid, String email) {
-    _curUser = UserModel(uid, email);
+    _curUser = UserModel(uid: uid, email: email);
   }
 
   UserModel? _userFromFirebase(auth.User? user) {
     if (user == null) return null;
 
-    return UserModel(user.uid, user.email);
+    return UserModel(uid: user.uid, email: user.email);
   }
 
   Stream<UserModel?> get userStream {

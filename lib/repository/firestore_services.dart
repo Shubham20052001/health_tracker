@@ -19,4 +19,18 @@ class FirestoreService {
         .then((value) => debugPrint("User added"))
         .catchError((error) => debugPrint("Failed to add user: $error"));
   }
+
+  Future<QuerySnapshot<Object?>> findUserByID({required String uid}) async {
+    CollectionReference users = _firestore.collection("users");
+    return await users.where("uid", isEqualTo: uid).get();
+  }
+
+  Future<dynamic> getUserInfo({
+    required String fieldName,
+    required String uid,
+  }) async {
+    QuerySnapshot<Object?> querySnap = await findUserByID(uid: uid);
+    QueryDocumentSnapshot<Object?> doc = querySnap.docs[0];
+    return doc.get(fieldName);
+  }
 }
