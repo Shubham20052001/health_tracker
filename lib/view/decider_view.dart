@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_tracker/model/user_model.dart';
 import 'package:health_tracker/repository/auth_services.dart';
-import 'package:health_tracker/view/home_screen_view.dart';
+import 'package:health_tracker/view/bottom_nav_bar_view.dart';
 import 'package:health_tracker/view/login_view.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +22,9 @@ class DeciderView extends StatelessWidget {
               userModel.email!,
             );
           }
-          return userModel == null ? const LoginScreen() : const HomeScreen();
+          return userModel == null
+              ? const LoginScreen()
+              : const BottomNavBarScreen();
         } else {
           return const Scaffold(
             body: Center(

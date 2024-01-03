@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_tracker/utils/routes/routes_name.dart';
+import 'package:health_tracker/view/bottom_nav_bar_view.dart';
 import 'package:health_tracker/view/decider_view.dart';
 import 'package:health_tracker/view/home_screen_view.dart';
 import 'package:health_tracker/view/login_view.dart';
@@ -16,6 +17,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
       case RouteNames.home:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
+      case RouteNames.bottomNav:
+        return MaterialPageRoute(builder: (_) => const BottomNavBarScreen());
       default:
         return MaterialPageRoute(
           builder: (_) {
