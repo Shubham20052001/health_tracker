@@ -9,12 +9,12 @@ class BMICalculator extends ChangeNotifier {
     notifyListeners();
   }
 
-  static double calculateBMI({
+  static String calculateBMI({
     required double height,
     required double weightInKg,
   }) {
     double weightInLbs = weightInKg * 2.204;
     double bmi = 703 * (weightInLbs / (height * height));
-    return bmi;
+    return bmi.toStringAsFixed(2);
   }
 }

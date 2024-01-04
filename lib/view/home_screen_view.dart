@@ -155,7 +155,7 @@ class HomeScreen extends StatelessWidget {
                   height: ((12 * heightInFoot) + heightInInches),
                   weightInKg: double.parse(weightController.text),
                 );
-                bmiPro.setBMI(bmi);
+                bmiPro.setBMI(double.parse(bmi));
               },
               style: Styles.buttonStyle,
             ),
