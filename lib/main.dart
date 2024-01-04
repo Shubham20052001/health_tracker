@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:health_tracker/repository/auth_services.dart';
 import 'package:health_tracker/repository/firestore_services.dart';
+import 'package:health_tracker/utils/bmi_calculator.dart';
 import 'package:health_tracker/utils/routes/routes.dart';
 import 'package:health_tracker/utils/routes/routes_name.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<AuthService>(create: (_) => AuthService()),
         Provider<FirestoreService>(create: (_) => FirestoreService()),
+        ChangeNotifierProvider(create: (_) => BMICalculator()),
       ],
       child: const MaterialApp(
         title: 'Health Tracker App',
