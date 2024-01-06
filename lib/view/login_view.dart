@@ -53,7 +53,7 @@ class LoginScreen extends StatelessWidget {
               )
                   .whenComplete(() {
                 Utils.showMessage("Logged-in Successfully", context);
-                Navigator.pushReplacementNamed(context, RouteNames.home);
+                Navigator.pushReplacementNamed(context, RouteNames.bottomNav);
               });
             },
           ),

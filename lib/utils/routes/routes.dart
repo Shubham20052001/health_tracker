@@ -4,7 +4,7 @@ import 'package:health_tracker/view/bottom_nav_bar_view.dart';
 import 'package:health_tracker/view/decider_view.dart';
 import 'package:health_tracker/view/home_screen_view.dart';
 import 'package:health_tracker/view/login_view.dart';
-import 'package:health_tracker/view/sign-in_view.dart';
+import 'package:health_tracker/view/sign-up_view.dart';
 
 class Routes {
   static MaterialPageRoute<dynamic> generateRoutes(RouteSettings settings) {

@@ -74,7 +74,7 @@ class SignUpScreen extends StatelessWidget {
                 )
                     .whenComplete(() {
                   Utils.showMessage("Registered Sucessfully", context);
-                  Navigator.pushReplacementNamed(context, RouteNames.home);
+                  Navigator.pushReplacementNamed(context, RouteNames.bottomNav);
                 });
               }),
           Components.sBox(height: 5),
