@@ -6,6 +6,7 @@ import 'package:health_tracker/res/components/components.dart';
 import 'package:health_tracker/res/styles.dart';
 import 'package:health_tracker/utils/bmi_calculator.dart';
 import 'package:health_tracker/utils/routes/routes_name.dart';
+import 'package:health_tracker/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -29,6 +30,7 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               authPro.signOut().whenComplete(() {
+                bmiPro.setBMI(0);
                 Navigator.pushReplacementNamed(context, RouteNames.login);
               });
             },
@@ -151,22 +153,36 @@ class HomeScreen extends StatelessWidget {
               onPress: () {
                 double heightInFoot = double.parse(footController.text);
                 double heightInInches = double.parse(inchesController.text);
-                var bmi = BMICalculator.calculateBMI(
+                String bmi = BMICalculator.calculateBMI(
                   height: ((12 * heightInFoot) + heightInInches),
                   weightInKg: double.parse(weightController.text),
                 );
                 bmiPro.setBMI(double.parse(bmi));
+
+                firestorePro
+                    .addUserInfo(
+                  uid: authPro.curUser!.uid,
+                  bmi: double.parse(bmi),
+                  weight: double.parse(weightController.text),
+                  height: ((12 * heightInFoot) + heightInInches),
+                )
+                    .whenComplete(() {
+                  Utils.showMessage("Info successfully added to DB.", context);
+                });
               },
               style: Styles.buttonStyle,
             ),
           ),
-          Consumer<BMICalculator>(
-            builder: (context, value, child) {
-              return Text(
-                "Your BMI: ${value.bmi}",
-                style: Styles.headline1,
-              );
-            },
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Consumer<BMICalculator>(
+              builder: (context, value, child) {
+                return Text(
+                  "Your BMI: ${value.bmi}",
+                  style: Styles.headline1,
+                );
+              },
+            ),
           ),
         ],
       ),

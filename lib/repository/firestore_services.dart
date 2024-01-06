@@ -33,4 +33,27 @@ class FirestoreService {
     QueryDocumentSnapshot<Object?> doc = querySnap.docs[0];
     return doc.get(fieldName);
   }
+
+  Future<String> getUserDocID({
+    required String uid,
+  }) async {
+    QuerySnapshot<Object?> querySnap = await findUserByID(uid: uid);
+    QueryDocumentSnapshot<Object?> doc = querySnap.docs[0];
+    return doc.id;
+  }
+
+  Future<void> addUserInfo({
+    required String uid,
+    required double bmi,
+    required double weight,
+    required double height,
+  }) async {
+    String docID = await getUserDocID(uid: uid);
+    CollectionReference users = _firestore.collection("users");
+    users.doc(docID).update({
+      "bmi": bmi,
+      "weight": weight,
+      "height": height,
+    });
+  }
 }
